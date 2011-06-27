@@ -1,0 +1,49 @@
+body{
+    background:#6F7174 url('../images/gradient1-01.jpg') repeat-x;
+    margin:0px;
+}
+
+h1{
+/*    color:#1F3248;*/
+    color:#6E4E30;
+    font-family:Futura, Helvetica, sans-serif;
+/*    font-family:'Yanone Kaffeesatz', Futura, Helvetica, sans-serif;*/
+    font-weight:bold;
+    font-size:36px;
+    text-shadow: black 0px -1px 0px;
+}
+
+h2{
+/*    color:#6E4E30;*/
+    color:#1F3248;
+    font-family:Futura, Helvetica, sans-serif;
+    font-size:22px;
+/*    text-shadow: black 0px -1px 0px;*/
+}
+
+p{
+    font-family:Palatino,serif;
+    font-size:14px;
+    line-height:18px;
+    color:#aaa;
+    text-shadow:#525354 0px -1px 0px;
+}
+
+a{
+    color:#ccc;
+}
+
+
+#main{
+    background:url('../images/background4-01-01.jpg') no-repeat;
+    min-height:1775px;
+}
+
+#paper{
+    background:url('../images/paperBack.jpg') repeat;
+/*    min-height:1775px;*/
+}
+
+.examples{
+    min-height:100px;
+}
