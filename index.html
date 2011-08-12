@@ -2,17 +2,267 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script src="scripts/jquery.cycle.lite.1.1.js"></script>
+
 	<link href="styles/960.css" rel="stylesheet" type="text/css" media="all"/> 
 	<link href="styles/main.css" rel="stylesheet" type="text/css" media="all"/> 
+	<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 	<title>Klem</title> 
+	<script>
+		$(document).ready(function() {
+			$("a#inline").fancybox({
+					'hideOnContentClick': true
+				});
+			$("a#albums").fancybox({
+				'hideOnContentClick': true
+			});
+			// $("a.gear").fancybox();
+			$(".gear").attr('rel', 'equipment').fancybox();
+			$(".scroll").click(function(event){
+				var scrollId = $(this).text().toLowerCase();		
+				event.preventDefault();
+				if(scrollId == 'home'){
+					$('html,body').animate({scrollTop:0}, 500);
+				}else{
+					$('html,body').animate({scrollTop:$('#'+scrollId).offset().top-50}, 500);
+				}
+				
+			});
+			$("#albumGrid div").bind({
+				mouseenter: function(){
+		    		// $(this).attr('src', "images/testAlbum.jpg");
+		    		var divId = $(this).attr('id');
+					divId = "summary"+divId;
+					$('#'+divId+' span').show();
+					$('#albums').hide();
+		  		},
+		  		mouseleave: function(){
+				    var divId = $(this).attr('id');
+					divId = "summary"+divId;
+					$('#'+divId+' span').hide();
+					$('#albums').show();
+					$(this).css('background', 'transparent');
+				}
+			});
+			$('.switcher').bind({
+				click: function(){
+					$('button').css('background','#FF5A40')
+					var newDiv = $(this).text().toLowerCase();
+					$.each($('div.about'), function(i){
+						if ($(this).attr('id') == newDiv){
+							$('#'+newDiv).fadeIn(1000);
+							newDiv == 'mastering'? $('#slideNext').show(): $('#slideNext').hide()
+						}else{
+							$(this).hide();
+						}
+					});	
+					$(this).css('background','#000');
+					// $(window).scrollTop(20);				
+				},
+				mouseenter: function(){
+		    		$(this).css('background','#000000');
+		  		},
+		  		mouseleave: function(){
+				    $(this).css('background','#FF5A40');
+				}
+			})
+			$('#mastering').cycle({ 
+				timeout: 0,
+			    height:   250,
+				prev:   '#slidePrev', 
+				next:   '#slideNext',
+				fx: 'custom',
+				cssBefore: { left: 1000, 'z-index':100 }, 
+				  animIn:  { left: 0 }, 
+				  animOut: { left: -1000 }
+				// cssBefore:{ opacity: 0, 'z-index':100, left: 1000 },
+				// 				animOut: { opacity: 0, 'z-index':1, left: 0 },
+				// 				animIn: { opacity: 1, left: -1000 }
+			});	
+			$('#gearSlide').cycle({ 
+				timeout: 0,
+			    height:   250,
+				prev:   '#slidePrevGear', 
+				next:   '#slideNextGear',
+				fx: 'custom',
+				cssBefore: { left: 1000, 'z-index':100 }, 
+				animIn:  { left: 0 }, 
+				animOut: { left: -1000 }
+			});	
+		});
+		
+	</script>
 </head> 
   <body> 
 	<div id="page" class="container_16"> 
 		<div id="header" class="grid_12" style="height:100px;"></div>
-		<div id="main" style="background:url('images/klem.png') no-repeat;" class="grid_12 alpha omgea"> 
-			<div id="content" class="grid_12" style="background:rgba(100,100,100,0.5);height:600px;">
-				<h1>hi</h1>
-			</div><!-- content --> 
+		<div id="main" class="grid_16 alpha omgea"> 
+			<div id="navigation" class="nav grid_16">
+				<ul>
+					<li class="grid_4 alpha"><a href="#about" class="scroll">Home</a></li>
+					<li class="grid_4"><a href="#work" class="scroll">Work</li>
+					<li class="grid_4"><a href="#gear" class="scroll">Gear</li>
+					<li class="grid_4 omega"><a href="#contact" class="scroll">Contact</li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<div id="intro" class="grid_16 cBlock">
+				<a name="about"><h1>Klemflastic Sound</h1></a>
+			<div id="home" class="about">
+				<p>Klemflastic Sound provides mastering services specifically tailored to the strengths of both digital and analog playback. We are fully capable of mastering in contemplation of a master for either a glass CD or vinyl lacquer.</p><a id="inline" href="#aboutText" style="float:right;">Read more...</a>
+				<div style="display:none"><span id="aboutText">Klemflastic Sound sees mastering as a balance of both technical and artistic decisions to ready an artist's recording for mass production. By analyzing the recording in a controlled, high fidelity environment, adjustments can be made to improve the program's clarity and impact, as well as create a comprehensive/cohesive 'flow' to a record. This is accomplished via a variety of methods that focus on frequency, dynamics, and stereo field/width, in addition to sequencing, establishing fades, and checking the master disc for errors. While considerations must be made in regards to the final format (uncompressed digital or vinyl, for example), signal-processing decisions are also based on (and ultimately decided by) the artist's aesthetic.</span></div>
+				</div>
+				<div id="bio" class="about" style="display:none;">
+					<p class="masteringText">Patrick Klem has taught audio engineering at multiple colleges, provided community DIY production workshops/tutorials, rebuilt a studio, and served in a variety of consultative roles. Past clients repeatedly comment on his technical focus and creative abilities as an engineer, as well as his solid work ethic and adaptability. As an independent engineer with over 15 years experience, Patrick readily takes the time to work with clients on all aspects of mastering decisions until the visualized end product is reached. There is no 'one size fits all' process, or a 'my way or the highway' approach. Patrick Klem focuses on engendering the artist's aesthetic by combining technical acumen with detailed communication, which results in a "stellar sounding end product." Complete client satisfaction with the final recording is the ultimate goal at Klemflastic Sound. Read more about Klemflastic Sound's work from clients.</p>
+				</div>
+				<div id="mastering" class="about" style="display:none;overflow:hidden;">
+					<div id="mastering1" class="masteringOverlay">
+						<p class="masteringText">Mastering is not just for large budget professional recordings. As audio technology becomes more widely available, far more recordings are being created in sub-optimal conditions. Consequently, professional mastering has become an indispensable link to an excellent sounding record. Mastering helps an album reach its full potential in a number of ways:</p>
+					</div>
+					<div id="mastering2" class="masteringOverlay">
+						<h2>Mix evaluation</h2><p class="masteringText">Mixes are evaluated in a sonically clean, purpose-built space. The dedicated mastering environment (high-fidelity signal chain, accurate monitor placement and room treatment) often reveal details and aspects of the track that are not readily apparent during the mixing process.  (If there are issues that are best addressed in the mixing stage, and remixes are still an option, we will walk the client through the steps to create better mixes.) </p>
+					</div>
+					<div id="mastering3" class="masteringOverlay">
+						<h2>Error correction</h2><p class="masteringText">Digital noise, be it clicks, crackling, or drop-outs can be corrected. Degraded analog recordings can often be restored to reveal clarity and detail masked by distortion.</p>
+					</div>
+					<div id="mastering4" class="masteringOverlay">
+						<h2>Sonic improvement</h2><p class="masteringText">We apply processing (under the 'first do no harm' credo) that ensures the record will be as robust (tonally, dynamically, spatially and temporally) as possible on the widest variety of playback systems, from earbuds to car speakers to audiophile setups. Well researched processors are used to apply equalization, compression, expansion, limiting, de-essing, stereo field editing, etc. to best serve the artist's intentions. Attention to detail and the support/extension of the artist's intent and aesthetic is paramount.
+					</div>
+					<div id="mastering5" class="masteringOverlay">
+						<h2>Creation of a cohesive narrative</h2><p class="masteringText">Fades, transitions, and leveling ensure songs flow naturally from each other. This is especially important when songs are recorded or mixed in multiple environments.</p>
+					</div>
+					<div id="mastering6" class="masteringOverlay">
+						<h2>Quality control</h2><p class="masteringText">Mastering is your last chance to catch any errors that may have been missed during mixing. Errors range far and wide, from interfacing multiple digital devices word clocks to Masters that leave Klemflastic are ready for error-free replication (CDs) and lacquer cutting. We prepare masters that are trouble-free for the lacquer cutter or CD replication plant. To boot, we follow through with the lacquer cutter to ensure the mixes are reproduced as accurately as possible, and are also happy to evaluate test pressings on a true reference.</p>
+					</div>
+					<div id="mastering7" class="masteringOverlay">
+						<p class="masteringText">Most indie label vinyl records are created as a 'flat' cut.  This means the lacquer cutter will adjust the program for the vinyl medium if there are glaring issues that wreak havoc on the cutting stylus (e.g., wide stereo image in the low Hertz, strong transients > 7kHz, etc.), but nothing else.  Although this process is technically called 'mastering', it offers NONE of the benefits described.</p>
+					</div>
+					
+				</div>
+				<div id="slideNext" style="float:right;display:none;"><button>Next</button></div>
+				<div>
+					<ul class="aboutNav">
+						<li id="aboutButton"><button class="switcher">Home</button></li>
+						<li id="bioButton"><button class="switcher">Bio</button></li>
+						<li id="masteringButton"><button class="switcher">Mastering</button></li>
+					</ul>
+				</div> <!-- aboutNav -->
+			</div>
+			<div class="clear"></div>
+		<div id="work" class="grid_16 cBlock">
+				<a name="work"><h1>Work</h1></a>
+				<div id="albumGrid" class="grid_12 alpha">
+					<!-- All the record images -->
+					<div id="one" class="grid_3 alpha image"><img src="images/TLR-080.jpg"/></div>
+					<div id="two" class="grid_3 image"><img src="images/TLR-080.jpg"/></div>
+					<div id="three" class="grid_3 image"><img src="images/WF_RS.jpg"/></div>
+					<div id="four" class="grid_3 omega image"><img src="images/WF_RS.jpg"/></div>
+					<div class="clear"></div>
+					<div id="five" class="grid_3 alpha image"><img src="images/TLR-080.jpg"/></div>
+					<div id="six" class="grid_3 image"><img src="images/tlr-076.jpg"/></div>
+					<div id="seven" class="grid_3 image"><img src="images/tlr-076.jpg"/></div>
+					<div id="eight" class="grid_3 omega image"><img src="images/gunnilyas.jpg"/></div>
+				</div>
+				<!-- Text for the albums -->
+				<div id="summaryone" class="grid_4 omega"> 
+					<span style="color:#ccc; display:none;"><strong>Six Organs of Admittance</strong><br/><i> Maria Kapel</i>Pavilion PVL-010, 12" vinyl (mastering)</span>
+				</div>
+				<div id="summarytwo" class="grid_4 omega"> 
+					<span style="color:#ccc; display:none;"><strong>Sonic Youth &amp; Mouthus</strong><br/><i> Not the spaces you know, but between them</i> 4xLP box set #2 </i>Three Lobed Recordings 080, 12" vinyl (mastering)</span>
+				</div>
+				<div id="summaryfour" class="grid_4 omega"> 
+					<span style="color:#ccc; display:none;"><strong>Winter Family</strong><br/><i>Red Sugar</i> alt.vinyl 032, 12" vinyl x 2 (mastering) Sub Rosa SR 315, CD (mastering)</span>
+				</div>
+				<div id="summaryfive" class="grid_4 omega"> 
+					<span style="color:#ccc; display:none;"><strong>United Waters</strong><br/><i> Your First Ever River</i>Arbitrary Signs 005, 12" vinyl (mastering)</span>
+				</div>
+				<div id="summarysix" class="grid_4 omega"> 
+					<span style="color:#ccc; display:none;"><strong> MV&amp;EE</strong><br/><i>Country Stash</i> Three Lobed Recordings 076, 12" vinyl (mastering)</span>
+				</div>
+				<div id="summaryeight" class="grid_4 omega"> 
+					<span style="color:#ccc; display:none;"><strong>Steve Gunn &amp; Ilyas Ahmed</strong><br/><i>Record Store Day 2011</i> Immune Recordings 017, 7" vinyl (mastering)</span>
+				</div>
+				<a id="albums" href="#allAlbums">View all...</a>
+				<div style="display:none">
+					<span id="allAlbums">
+					<ul id="discMain"><li id="discList"><p><img width="100px" src="images/albums/anahita.jpg" align="right"></p><h4><a href="#">Anahita </a><a href="http://www.myspace.com/tarafursaxa">(Tara Burke &amp; </a><a href="http://www.myspace.com/helenaespvall">Helena Espvall)</a></h4><em>Arcana En Cantos</em><br>alt.vinyl av022, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://www.myspace.com/axolotl">Axoltol</a></h4><em>Of Bonds In General</em><br>Our Mouth 26, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/DerekBaileyNoFi11.jpg" align="right"></p><h4><a href="http://www.allaboutjazz.com/php/article.php?id=20549">Derek Bailey, </a><a href="http://www.tonybevan.com">Tony Bevan, </a><a href="http://www.myspace.com/paulhession">Paul Hession, </a><a href="http://www.japanimprov.com/yotomo">Otomo Yoshihide</a></h4><em>Good Cop Bad Cop</em><br>No Fi Records NEU011, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr039BasaltFingers.jpg" align="right"></p><h4><a href="http://www.threelobed.com/tlr/tlr039.html">Basalt Fingers</a></h4><em>LP</em><br>Three Lobed Recordings 039, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/lapidary.jpg" align="right"></p><h4><a href="http://www.zaimph.org/">Marcia Bassett &amp; </a><a href="http://www.myspace.com/helenaespvall">Helena Espvall</a></h4><em>Lapidary</em><br>alt.vinyl av021, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/BOAlive.jpg" align="right"></p><h4><a href="http://www.birdsofavalon.com">Birds of Avalon</a></h4><em>Live at Kings - DVD</em><br>Volcom Entertainment (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://www.dronedisco.com/bxc">Burning Star Core</a></h4><em>Crystal Castles</em><br>No-Fi Records NEU007, 10" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://www.dronedisco.com/bxc">Burning Star Core</a></h4><em>Rrrecycled</em><br>No-Fi Records NEU009, 10" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr082.jpg" align="right"></p><h4><a href="http://threelobed.com/tlr/tlr082.html">Evan Caminiti</a></h4><em>West Winds</em><br>Three Lobed Recordings 082, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/CGJHLR.jpg" align="right"></p><h4><a href="http://www.cantwellgomezandjordan.com">CantwellGomezandJordan</a></h4><em>Hot Licks and Rhetoric</em><br>307 Knox Records 018, CD (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/CGJCytunes.jpg" align="right"></p><h4><a href="http://www.cantwellgomezandjordan.com">CantwellGomezandJordan</a></h4><em>Live at Cat's Cradle 8.17.08</em><br>CyTunes digital download (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/clearedLP100.jpg" align="right"></p><h4><a href="http://immunerecordings.net/">Cleared</a></h4><em>Cleared</em><br>Immune Recordings 014, 12" vinyl and cassette (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/TLR-080.jpg" align="right"></p><h4><a href="http://www.cometsonfire.com//">Comets On Fire &amp; </a><a href="http://www.dcharlesspeer.com/">D. Charles Speer &amp; The Helix + </a><a href="http://www.woodenwand.org/">Wooden Wand</a></h4><em>Not the spaces you know, but between them 4xLP box set # 3</em><br>Three Lobed Recordings 080, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/CousinsOfReggaeMethridge.jpg" align="right"></p><h4><a href="http://www.myspace.com/cousinsofreggae">Cousins of Reggae</a></h4><em>Methridge</em><br>Our Mouth 5, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/av014.jpg" align="right"></p><h4><a href="http://www.myspace.com/davisgareth">Gareth Davis &amp; </a><a href="http://www.worstward.com">Steven R Smith</a></h4><em>The Line Across</em><br>alt.vinyl av014, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/neu017.jpg" align="right"></p><h4><a href="http://www.myspace.com/herbdiamante">Herb Diamante &amp; Friends</a></h4><em>A Spoonful Of Yeast</em><br>No-Fi Records NEU017, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/herbdiamanteNEU016-100.jpg" align="right"></p><h4><a href="http://www.myspace.com/herbdiamante">Herb Diamante &amp; Friends</a></h4><em>Mr Lonely (w/ Sun City Girls) b/w In New Moon's Lull (w/ Diatric Puds)</em><br>No-Fi Records NEU016, digital download (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/DNCytunes.jpg" align="right"></p><h4><a href="http://www.myspace.com/thedoublenegative">Double Negative</a></h4><em>Live at Cat's Cradle 8.17.08</em><br>CyTunes digital download (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageUnavailabletext.jpg" align="right"></p><h4><a href="http://www.myspace.com/drunkcourage">Dutch Courage</a></h4><em>EP</em><br>Self-released CD (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/EmeraldsPainJerkNoFi.jpg" align="right"></p><h4><a href="http://www.discogs.com/artist/Emeralds+(2)">Emeralds /</a><a href="http://en.wikipedia.org/wiki/Pain_Jerk"> Pain Jerk</a></h4><em>European Tour 2009</em><br>No-Fi Records NEU015, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/EKAPsplitEKside.jpg" align="right"></p><h4><a href="http://www.myspace.com/ourmouth">Eskimo King /</a><a href="http://www.last.fm/music/Afternoon+Penis"> Afternoon Penis</a></h4><em>split LP</em><br>Abandon Ship Records ASR058.2009, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/TLR-080.jpg" align="right"></p><h4><a href="http://www.thrilljockey.com/artists/?id=12759/">Eternal Tapestry &amp; </a><a href="http://bardopond.org/">Bardo Pond</a></h4><em>Not the spaces you know, but between them 4xLP box set # 4</em><br>Three Lobed Recordings 080, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/expo70imm011.jpg" align="right"></p><h4><a href="http://www.exposeventy.com/">Expo 70</a></h4><em>Where Does Your Mind Go?</em><br>Immune Recordings 011, 12" vinyl x 2 (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/expo70imm012.jpg" align="right"></p><h4><a href="http://www.exposeventy.com/">Expo 70</a></h4><em>Journey Through Astral Projection</em><br>Immune Recordings 012, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/FagStaticF.jpg" align="right"></p><h4><a href="http://www.myspace.com/quakerguns">Fag Static</a></h4><em>Ficcanaso</em><br>Room 10 Collective 01, 12" vinyl (recording, mixing, and mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/FingFangFoomCytunes.jpg" align="right"></p><h4><a href="http://www.myspace.com/finfangfoom">Fing Fang Foom</a></h4><em>Live at Cat's Cradle 8.17.08</em><br>CyTunes digital download (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/GoldStandardEP.jpg" align="right"></p><h4><a href="http://www.myspace.com/goldstandardatlanta">Gold Standard</a></h4><em>EP</em><br>Room 10 Collective 03, CD (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/GStd-LP.jpg" align="right"></p><h4><a href="http://www.myspace.com/goldstandardatlanta">Gold Standard</a></h4><em>LP</em><br>Room 10 Collective 04, (recording, mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr054-stevegunn100.jpg" align="right"></p><h4><a href="http://www.myspace.com/pyramidmerchandise">Steve Gunn</a></h4><em>Boerum Palace</em><br>Three Lobed Recordings 054, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/sundowner100.jpg" align="right"></p><h4><a href="http://www.myspace.com/pyramidmerchandise">Steve Gunn</a></h4><em>Sundowner</em><br>Harvest Recordings HRV-006, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr-083.jpg" align="right"></p><h4><a href="http://www.threelobed.com/tlr/tlr083.html">Gunn - Truscinski Duo</a></h4><em>Sand City</em><br>Three Lobed Recordings 083, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/gunnilyas.jpg" align="right"></p><h4><a href="#">Steve Gunn &amp; </a><a href="http://stevegunn.blogspot.com/">Ilyas Ahmed</a></h4><em>Record Store Day 2011</em><br>Immune Recordings 017, 7" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr052HowlinRain.jpg" align="right"></p><h4><a href="http://www.howlinrain.com">Howlin' Rain</a></h4><em>Wild Life</em><br>Three Lobed Recordings 054, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/TLR-080.jpg" align="right"></p><h4><a href="http://www.husharbors.co.uk/">Hush Arbors &amp; </a><a href="http://www.myspace.com/keydemo/">Key Demo</a></h4><em>Not the spaces you know, but between them 4xLP box set # 5</em><br>Three Lobed Recordings 080, 7" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr008IdyllSwords.jpg" align="right"></p><h4><a href="http://www.threelobed.com/tlr/purposeful.html">Idyll Swords</a></h4><em>Purposeful Availment EP</em><br>Three Lobed Recordings 008, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ITYOTP.jpg" align="right"></p><h4><a href="http://www.myspace.com/intheyearofthepig">In The Year Of The Pig</a></h4><em>Jamon</em><br>Holidays for Quince Records, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/JackalBladeLid.jpg" align="right"></p><h4><a href="http://www.carlosgiffoni.com/index.html">Jackal Blade</a></h4><em>Lid</em><br>No-Fi Records NEU012, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageUnavailabletext.jpg" align="right"></p><h4><a href="http://history.louisvillehardcore.com/index.php?title=Kill">Kill</a></h4><em>Discography</em><br>Unreleased CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/KillSpiders.jpg" align="right"></p><h4><a href="http://www.last.fm/music/Kill+Spiders">Kill Spiders</a></h4><em>Burning Village, Raped Horse &amp; Stab, Stab, Stab</em><br>Self-released CDs (recording, mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/Langtrysolo.jpg" align="right"></p><h4><a href="http://www.myspace.com/langtry">Langtry</a></h4><em>Title TK</em><br>solo record (recording)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageUnavailabletext.jpg" align="right"></p><h4><a href="http://www.myspace.com/langtry">Langtry</a></h4><em>Title TK</em><br>full band record (recording)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MagicBabiesCytunes.jpg" align="right"></p><h4><a href="http://www.myspace.com/themagicbabies">Magic Babies</a></h4><em>Live at Cat's Cradle 8.17.08</em><br>CyTunes digital download (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr051MagikMarkers.jpg" align="right"></p><h4><a href="http://en.wikipedia.org/wiki/Magik_Markers">Magik Markers</a></h4><em>Gucci Rapidshare Download</em><br>Three Lobed Recordings 051, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MapleStaveEP3.jpg" align="right"></p><h4><a href="http://www.maplestave.com">Maple Stave</a></h4><em>EP3</em><br>Self-released CD (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://morichieko.fastmail.fm/">Chieko Mori</a></h4><em>Title TK</em><br>Smeraldi Rima 0XX, 12" vinyl and CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MouthusDivisionals.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus</a></h4><em>Divisionals</em><br>Ecstatic Peace 34C, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MouthusFollowThisHouse.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus</a></h4><em>Follow This House</em><br>Important Records IMPREC121, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr029Mouthus.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus</a></h4><em>For The Great Slave Lakes</em><br>Three Lobed Recordings 029, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MouthusNFP18.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus</a></h4><em>Untitled</em><br>No Fun Productions 018, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MouthusBulbssplit.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus /</a><a href="http://www.forcedexposure.com/artists/bulbs.html"> Bulbs Emerald Isle</a></h4><em>Mouthus/Bulbs Emerald Isle</em><br>Important Records IMPREC255, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MouthusYellowSwansNoFi10.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus /</a><a href="http://www.jyrk.com/yellowswans/news.htm"> Yellow Swans</a></h4><em>Live on Conan Island</em><br>No-Fi Records NEU010, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/MouthusYSWeirdF12F.jpg" align="right"></p><h4><a href="http://www.ourmouthrecords.com">Mouthus /</a><a href="http://www.jyrk.com/yellowswans/news.htm"> Yellow Swans</a></h4><em>Conan Island</em><br>Weird Forest Records 012, 12" vinyl (recording)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr-076.jpg" align="right"></p><h4><a href="http://www.threelobed.com/tlr/tlr076.html/">MV&amp;EE</a></h4><em>Country Stash</em><br>Three Lobed Recordings 076, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/OneEnsembleNoFi13.jpg" align="right"></p><h4><a href="http://www.myspace.com/oneensemble">One Ensemble Orchestra</a></h4><em>Other Thunders</em><br>No-Fi Records NEU013, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/organlady.jpg" align="right"></p><h4><a href="http://www.myspace.com/organlady">The Organ Lady</a></h4><em>Takes Requests</em><br>Self-released CD (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/SAB043.jpg" align="right"></p><h4><a href="http://pigeonsband.com/">Pigeons</a></h4><em>Visions of the Valley</em><br>Soft Abuse 043, 7" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/PolvoCytunes.jpg" align="right"></p><h4><a href="http://www.myspace.com/polvotheband">Polvo</a></h4><em>Live at Cat's Cradle 8.17.08</em><br>CyTunes digital download (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/Rachels-SL.jpg" align="right"></p><h4><a href="http://www.rachelsband.com">Rachel's</a></h4><em>Systems/Layers</em><br>Quarterstick Records 075, 12" vinyl and CD (field recording)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr048LeeRanaldo.jpg" align="right"></p><h4><a href="http://www.sonicyouth.com">Lee Ranaldo</a></h4><em>Maelstrom From Drift</em><br>Three Lobed Recordings 048, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageUnavailabletext.jpg" align="right"></p><h4><a href="http://www.theraveonettes.com">Raveonettes</a></h4><em>Two songs on Live EP </em><br>Sony/BMG digital download (recording and mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr066JackRose.jpg" align="right"></p><h4><a href="http://www.myspace.com/jackrosekensington">Jack Rose</a></h4><em>Black Dirt</em><br>Three Lobed Recordings 066, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/JackRoseTribute.jpg" align="right"></p><h4><a href="http://www.fina-music.com/catalog/index.html?id=104712">Various Artists</a></h4><em>Honest Strings: A Tribute To The Life And Work Of Jack Rose</em><br>Thrill Jockey distribution (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/RMSN.jpg" align="right"></p><h4><a href="http://www.southern.com/southern/band/SHIPN/biog.html">Shipping News /</a><a href="http://www.slamdek.com/metroschifter/index.html"> Metroschifter</a></h4><em>split EP</em><br>Initial Records 25, CD (recording)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://www.myspace.com/sightings">Sightings</a></h4><em>Future Accidents</em><br>Our Mouth 25, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://www.sixorgans.com">Six Organs of Admittance</a></h4><em>Maria Kapel</em><br>Pavilion PVL-010, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ETS_book_front1.jpg" align="right"></p><h4><a href="http://www.sixorgans.com">Six Organs of Admittance </a></h4><em>'Empty the Sun' Soundtrack</em><br>Barnacle Books, Drag City distribution, 12" vinyl and CD paired with the book (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr004SixOrgans.jpg" align="right"></p><h4><a href="http://www.sixorgans.com">Six Organs of Admittance</a></h4><em>You Can Always See the Sun</em><br>Three Lobed Recordings 004, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/TLR-080.jpg" align="right"></p><h4><a href="http://www.sonicyouth.com/">Sonic Youth &amp; </a><a href="http://ourmouthrecords.com/">Mouthus</a></h4><em>Not the spaces you know, but between them 4xLP box set # 2</em><br>Three Lobed Recordings 080, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/SSmithLPTomorrow.jpg" align="right"></p><h4><a href="http://www.sonnysmith.com">Sonny Smith</a></h4><em>Tomorrow is Alright</em><br>Soft Abuse SAB039, 12" vinyl / Fat Possum FP1225 CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/SSmithBroom7inch.jpg" align="right"></p><h4><a href="http://www.sonnysmith.com">Sonny Smith</a></h4><em>Broom &amp; Dustpan b/w ESP</em><br>Homeskillet Records HSR-7-001, 7" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/SSmithSAB033.jpg" align="right"></p><h4><a href="http://www.sonnysmith.com">Sonny Smith</a></h4><em>Death Cream</em><br>Soft Abuse SAB003, 7" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/hitafterhit.jpg" align="right"></p><h4><a href="http://www.fatpossum.com/artists/sonny-and-the-sunsets">Sunny &amp; The Sunsets</a></h4><em>Hit After Hit</em><br>Fat Possum 1240, 12" vinyl and CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tiagoWP.jpg" align="right"></p><h4><a href="http://www.tiagosousa.org/">Tiago Sousa</a></h4><em>Walden Pond's Monk</em><br>Immune Recordings 016, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr072Speer.jpg" align="right"></p><h4><a href="http://www.dcharlesspeer.com">D. Charles Speer &amp; The Helix</a></h4><em>Distillation</em><br>Three Lobed Recordings 072, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://ourmouthrecords.com/discography.html">Spirit Of The Positive Wind</a></h4><em>LP</em><br>Smeraldi Rima 0XX, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/TLR-080.jpg" align="right"></p><h4><a href="http://www.suncitygirls.com/">Sun City Girls &amp; </a><a href="http://stevegunn.blogspot.com/">Steve Gunn</a></h4><em>Not the spaces you know, but between them 4xLP box set # 1</em><br>Three Lobed Recordings 080, 12" vinyl (mastering of Gunn side)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/TheSunglassesBadHappy.jpg" align="right"></p><h4><a href="http://www.myspace.com/thesunglassesatl">Sunglasses</a></h4><em>Bad Happy</em><br>Darkwolf Recordings 002, CD / Trans Ruin Recordings 001, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/SuperchunkCytunes.jpg" align="right"></p><h4><a href="http://www.superchunk.com">Superchunk</a></h4><em>Live at Cat's Cradle 8.29.08</em><br>CyTunes digital download (mixing)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr007Tarentel.jpg" align="right"></p><h4><a href="http://tarentel.com">Tarentel</a></h4><em>Fear of Bridges CD EP</em><br>Three Lobed Recordings 007, CD (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageUnavailabletext.jpg" align="right"></p><h4><a href="http://www.myspace.com/wearetwin">TWIN</a></h4><em>EP</em><br>Label TK, Format TK (recording, mixing, and mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/ImageTKtext.jpg" align="right"></p><h4><a href="http://arbitrarysigns.blogspot.com/">United Waters</a></h4><em>Your First Ever River</em><br>Arbitrary Signs 005, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/WVFS.jpg" align="right"></p><h4><a href="http://www.wvfs.fsu.edu">Various Artists</a></h4><em>Live at WVFS</em><br>Self-released CD (recording, mixing, production)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/tlr038YellowSwans.jpg" align="right"></p><h4><a href="http://www.jyrk.com/yellowswans/news.htm">Yellow Swans</a></h4><em>Descension</em><br>Acuarela NOIS063, CD / Three Lobed Recordings 038, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/YellowSwansBSCBlossomingNoise7.jpg" align="right"></p><h4><a href="http://www.jyrk.com/yellowswans/news.htm">Yellow Swans /</a><a href="http://www.dronedisco.com/bxc"> Burning Star Core</a></h4><em>Untitled</em><br>Blossoming Noise PYG07VIN, 12" vinyl (mastering)<p></p></li><li id="discList"><p><img width="100px" src="images/albums/WF_RS.jpg" align="right"></p><h4><a href="http://www.winterfamily.info/">Winter Family</a></h4><em>Red Sugar</em><br>alt.vinyl 032, 12" vinyl x 2 (mastering), Sub Rosa SR 315, CD (mastering)<p></p></li></ul></span></div>		
+			</div><!-- work --> 
+			<div class="clear"></div>
+			<div id="gear" class="grid_16 cBlock">
+				<a name="gear"><h1>Gear</h1></a>
+				<div id="slideNextGear"><button style="position:relative;left:800px;">Next</button></div>
+				<div id="gearSlide">
+					<div id="gear1" class="gearOverlay">
+						<h2>Klemflastic is mastering for the people; a stronger record at a modest price.</h2><p class="masteringText">Some mastering houses with expansive gear lists churn out amazing products. Conversely, there are just as many that butcher the mixes. <strong>Gear lists are secondary to an engineer's inherent knowledge, abilities, and communication.</strong> Of course, mastering does require certain high-end baseline equipment and an excellent environment in which to work, but we highly encourage you to have a talk with any potential mastering engineer to look beyond an expensive gear list (and rates!). </p>
+						</div>
+					<div id="gear2" class="gearOverlay">
+						<h2>Room</h2><p class="masteringText">Mastering requires an excellent sounding acoustical environment. Without it, the engineer is, hyperbolically, driving in a sandstorm. An (arguably ridiculously) obsessive amount of time was placed on creating the most neutral room possible to operate Klemflastic. Through measuring, consulting, bass traps / sound absorption of various types, diffusors, and too much math, we've created a room that is free from flutter echo without bass build up, has excellent stereo imaging, and affected a large reduction in any peaks and nulls in the frequency response of the room. This is not a 'bedroom mastering' setup, despite what the rates sheet implies! And while you're looking at our rates, consider comments like this.</p>
+					</div>
+					<div id="gear3" class="gearOverlay">
+						<h2>Recorders/Playback</h2>
+						<p class="masteringText">
+							<ul style="color:#aaa;">
+							<li>Pro Tools (Digi003, all A/D and D/A stages bypassed), various 2 channel editors</li>
+							<li>Otari DTR-8S DAT-R</li>
+							<li>Plextor Premium CD-R drive with Plextools error checking software</li>
+							</ul>
+						</p>
+					</div>
+					<div id="gear4" class="gearOverlay">
+						<h2>Monitoring Chain</h2>
+						<p class="masteringText">
+							<ul style="color:#aaa;">
+							<li>Focal Solo6 Be</li>
+							<li>Lynx Aurora 8 channel A/D D/A w/ optical card</li>
+							<li>Passive monitor control box (calibrated)</li>
+							<li>Sennheiser HD600, Audio Technica ATH-M50 &amp; AKG K 240 headphones</li>
+							<li>PPA v2 headphone amp w/ Sigma 11 PSU, balanced (Jensen) and unbalanced input</li>
+							</ul>
+						</p>
+					</div>
+					<div id="gear5" class="gearOverlay">
+						<h2>Processors</h2>
+						<p class="masteringText">
+							<ul style="color:#aaa;"><h2>Analog</h2>
+							<li>Foote P3S Mastering Edition compressor</li>
+							<li>Dangerous Baxandall EQ</li>
+							<li>Gyraf Gyratec XIV Parallel Passive Tube EQ (arriving October 2011)</li>
+							</ul>
+							<ul style="color:#aaa;"><h2>Digital</h2>
+							<li>Assortment of plug-ins - almost all are double-precision/64 bit floating point, such as PSP's Neon HR (high resolution linear phase EQ), Mastercomp (transparent compression), oldTimer (analog character compression), and Xenon (limiter)</li>
+							</ul>
+						</p>
+					</div>
+					<div id="gear6" class="gearOverlay">
+						<h2>Phonograph &amp; Cassette System</h2>
+						<p class="masteringText">
+							<ul style="color:#aaa;">
+							<li>Technics SL-1200MK2SE (KAB mod'd) w/ KAB/Ortofon ProS cartridge w/ STY30 stylus</li>
+							<li>Single-ended triode phono preamplifier by K &amp; K Audio</li>
+							<li>Nakamichi cassette deck</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+				<div id="gearGrid" class="grid_12 alpha" style="margin-top:20px;">
+					<!-- All the gear images -->
+					<a rel="equipment" class="grid_4 alpha image gear" href="images/rack03.jpg"><img src="images/rack03.jpg"/></a>
+					<a rel="equipment" class="grid_4 image gear" href="images/rack04.jpg"><img src="images/rack04.jpg"/></a>
+					<a rel="equipment" class="grid_4 omega image gear" href="images/room2.jpg"><img src="images/room2.jpg"/></a>
+					<div class="clear"></div>
+					<a rel="equipment" class="grid_4 alpha image gear" href="images/room3.jpg"><img src="images/room3.jpg"/></a>
+					<a rel="equipment" class="grid_4 image gear" href="images/roomleftwall.jpg"><img src="images/roomleftwall.jpg"/></a>
+					<a rel="equipment" class="grid_4 omega image gear" href="images/acousticpanels01.jpg"><img src="images/acousticpanels01.jpg"/></a>
+				</div>
+			</div><!-- gear --> 
+			<div id="contact" class="grid_16 cBlock">
+					<a name="contact"><h1>Patrick Klem</h1><h2>klem at klemflastic dot com</h2>
+			</div> <!-- contact -->
+			<div class="clear"></div>
+
 		</div> <!-- main --> 
 	</div> <!--End of page div--> 
   </body> 
