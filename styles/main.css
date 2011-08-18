@@ -1,6 +1,7 @@
 a{
 	text-decoration:none;
 	color:#009FCD;
+	margin:1px;
 }
 
 body{
@@ -12,7 +13,8 @@ body{
 
 h1{
 	color: #009FCD;
-	font-size: 4.3em;
+	/*font-size: 4.3em;*/
+	font-size: 3.3em;
 	text-shadow: black 0px -1px 0px;
 	text-transform: uppercase;
 	margin: 0px;
@@ -24,6 +26,10 @@ h2{
 /*    font-family:Futura, Helvetica, sans-serif;*/
     font-size:22px;
 /*    text-shadow: black 0px -1px 0px;*/
+}
+
+h4{
+	margin:5px;
 }
 
 p{
@@ -64,6 +70,13 @@ input.submit:hover {
   background-color: #BF4330;
   color: #fff;
   }
+.active{
+	background:#000;
+}
+
+#fancybox-overlay{
+	height:13000px;
+}
 
 #gear{
 	overflow:hidden;
@@ -76,12 +89,40 @@ input.submit:hover {
 
 #main{
 /*    background:url('../images/background4-01-01.jpg') no-repeat;*/
-    min-height:1775px;
+    min-height:2000px;
+}
+#allQuotes div{
+	width:700px;
 }
 
+#allQuotes p{
+	font-size:16px;
+	text-shadow:none;
+	line-height:22px;
+	color:#000;
+}
+
+.bqstart {
+     float: left;
+     font-size: 500%;
+     color:rgba(150,150,150,0.5);
+ }
+
+
+ .bqend {
+     float: right;
+     font-size: 500%;
+     color: #FF0000;
+	 height: 25px;
+	 margin-top: 0px;
+     padding-top: 45px;
+	 color:rgba(150,150,150,0.5);
+ }
+
 .cBlock{
-	min-height:400px;
+	min-height:500px;
 	border-top:1px solid #969696;
+	margin-bottom: 40px;
 /*	border-top:10px solid #009FCD;*/
 }
 
@@ -89,10 +130,14 @@ input.submit:hover {
     min-height:100px;
 }
 
+.discList{
+	min-height:100px;
+}
+
 .gearOverlay{
-	min-height:270px;
+	min-height:230px;
 	background:#000;
-	width:1000px;
+	width:940px;
 	margin-right:40px;
 }
 
@@ -116,10 +161,11 @@ input.submit:hover {
 
 .nav {
 	position:fixed;
-	top:10px;
+	top:0px;
 	height:37px;
 /*	background:rgba(255, 255, 255, 0.30);*/
 	z-index:900;
+	background:#000;
 }
 
 .nav li{
@@ -136,6 +182,45 @@ input.submit:hover {
 }
 .nav li a:hover{
 
+}
+
+.navArrow{
+	font-size:130%;
+	width:30px;
+	font-weight:normal;
+	height:auto;
+	position:relative;
+	left:700px;
+}
+
+.prepOverlay{
+	min-height:1000px;
+	background:#000;
+	width:1000px;
+	margin-right:40px;
+}
+
+.quoteAttr{
+/*	font-family:Helvetica, Arial, sans-serif;*/
+}
+
+.quoteText{
+	font-size:15px;
+/*	font-family: Times, serif;*/
+	line-height:18px;
+	width:300px;
+	position:relative;
+	left:600px;
+	color:#ddd;
+	background:rgba(50, 50, 50, 0.8);
+	border-left:4px solid #969696;
+	padding:5px;
+	float:left;
+}
+.quoteText.inline{
+/*	float:right;
+*/	position:relative;
+	left:-120px;
 }
 
 .stdText{

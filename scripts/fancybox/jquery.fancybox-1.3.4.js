@@ -348,7 +348,8 @@
 					'background-color' : currentOpts.overlayColor,
 					'opacity' : currentOpts.overlayOpacity,
 					'cursor' : currentOpts.hideOnOverlayClick ? 'pointer' : 'auto',
-					'height' : $(document).height()
+					// 'height' : $(document).height()
+					'height' : '13000px'
 				});
 
 				if (!overlay.is(':visible')) {
