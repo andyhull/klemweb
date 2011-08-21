@@ -121,7 +121,7 @@ input.submit:hover {
  }
 
 .cBlock{
-	min-height:500px;
+	min-height:250px;
 	border-top:1px solid #969696;
 	margin-bottom: 40px;
 /*	border-top:10px solid #009FCD;*/
@@ -168,6 +168,7 @@ input.submit:hover {
 	z-index:900;
 /*	background:#000;*/
 	background-color: #2B2622;
+	padding-left:35px;
 }
 
 .nav li{
