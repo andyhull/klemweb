@@ -84,9 +84,12 @@
 						if ($(this).attr('id') == newDiv){
 							$('#'+newDiv).fadeIn(1000);
 							if(newDiv == 'mastering'){
+								$('#slideNextPrep').hide(); 
+								$('#slidePrevPrep').hide();
 								$('#slideNext').show(); 
 								$('#slidePrev').show();
 								$('#masterNav').show();
+								$('#quoteNav').hide();
 								// catch and build the slideshow on button click **************
 								$('#mastering').cycle('destroy');
 								$('#mastering').cycle({ 
@@ -100,8 +103,11 @@
 							}else if(newDiv == 'preparation'){
 								$('#slideNextPrep').show(); 
 								$('#slidePrevPrep').show();
+								$('#slideNext').hide(); 
+								$('#slidePrev').hide();
 								$('#home').show();
 								$('#quoteNav').show();
+								$('#masterNav').hide();
 								// catch and build the slideshow on button click **************
 								$('#preparation').cycle('destroy');
 								$('#preparation').cycle({ 
@@ -117,6 +123,8 @@
 								$('#slidePrev').hide();
 								$('#masterNav').hide();
 								$('#quoteNav').hide();
+								$('#slideNextPrep').hide(); 
+								$('#slidePrevPrep').hide();
 							}
 						}else{
 							$(this).hide();
