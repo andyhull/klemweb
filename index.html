@@ -86,6 +86,7 @@
 							if(newDiv == 'mastering'){
 								$('#slideNext').show(); 
 								$('#slidePrev').show();
+								$('#masterNav').show();
 								// catch and build the slideshow on button click **************
 								$('#mastering').cycle('destroy');
 								$('#mastering').cycle({ 
@@ -93,12 +94,14 @@
 								    height:   250,
 									prev:   '#slidePrev', 
 									next:   '#slideNext',
-									fx: 'scrollHorz'
+									fx: 'scrollHorz',
+									pager:  '#masterNav'
 								})
 							}else if(newDiv == 'preparation'){
 								$('#slideNextPrep').show(); 
 								$('#slidePrevPrep').show();
 								$('#home').show();
+								$('#quoteNav').show();
 								// catch and build the slideshow on button click **************
 								$('#preparation').cycle('destroy');
 								$('#preparation').cycle({ 
@@ -106,11 +109,14 @@
 								    height:   250,
 									prev:   '#slidePrevPrep', 
 									next:   '#slideNextPrep',
-									fx: 'scrollHorz'
+									fx: 'scrollHorz',
+									pager:  '#quoteNav'
 								});
 							}else{
 								$('#slideNext').hide(); 
 								$('#slidePrev').hide();
+								$('#masterNav').hide();
+								$('#quoteNav').hide();
 							}
 						}else{
 							$(this).hide();
@@ -199,7 +205,7 @@
 				</div>
 				<div id="mastering" class="about" style="display:none;overflow:hidden;">
 					<div id="mastering1" class="masteringOverlay">
-						<p class="masteringText">Mastering is not just for large budget professional recordings. As audio technology becomes more widely available, far more recordings are being created in sub-optimal conditions. Consequently, professional mastering has become an indispensable link to an excellent sounding record. Mastering helps an album reach its full potential in a number of ways:</p>
+						<h2>Why Master?</h2><p class="masteringText">Mastering is not just for large budget professional recordings. As audio technology becomes more widely available, far more recordings are being created in sub-optimal conditions. Consequently, professional mastering has become an indispensable link to an excellent sounding record. Mastering helps an album reach its full potential in a number of ways:</p>
 					</div>
 					<div id="mastering2" class="masteringOverlay">
 						<h2>Mix evaluation</h2><p class="masteringText">Mixes are evaluated in a sonically clean, purpose-built space. The dedicated mastering environment (high-fidelity signal chain, accurate monitor placement and room treatment) often reveal details and aspects of the track that are not readily apparent during the mixing process.  (If there are issues that are best addressed in the mixing stage, and remixes are still an option, we will walk the client through the steps to create better mixes.) </p>
@@ -217,9 +223,11 @@
 						<h2>Quality control</h2><p class="masteringText">Mastering is your last chance to catch any errors that may have been missed during mixing.  Errors range far and wide, from incorrectly interfacing multiple digital devices (word clocks) to C2 errors on the production master CD.  Masters that leave Klemflastic are ready for error-free replication (CDs) and lacquer cutting.  We prepare masters that are trouble-free for the lacquer cutter or CD replication plant.  To boot, we follow through with the lacquer cutter to ensure the mixes are reproduced as accurately as possible, and are also happy to evaluate test pressings on a true reference phonograph system.</p>
 					</div>
 					<div id="mastering7" class="masteringOverlay">
-						<p class="masteringText">Most indie label vinyl records are created as a 'flat' cut.  This means the lacquer cutter will adjust the program for the vinyl medium if there are glaring issues that wreak havoc on the cutting stylus (e.g., wide stereo image in the low Hertz, strong transients > 7kHz, etc.), but nothing else.  Although this process is technically called 'mastering', it offers NONE of the benefits described here. More info on the vinyl medium is available <a target="_blank"  href="considerations.pdf">here</a></p>
+						<h2>Isn't all this done at the plant?</h2><p class="masteringText">Most indie label vinyl records are created as a 'flat' cut.  This means the lacquer cutter will adjust the program for the vinyl medium if there are glaring issues that wreak havoc on the cutting stylus (e.g., wide stereo image in the low Hertz, strong transients > 7kHz, etc.), but nothing else.  Although this process is technically called 'mastering', it offers NONE of the benefits described here. More info on the vinyl medium is available <a target="_blank"  href="considerations.pdf">here</a></p>
 					</div>
+					
 				</div>
+				<div id="masterNav"></div>
 				<!-- <blockquote>
 								<p class="quoteText"><span class="bqstart">&#8220;</span><i>Damn that Pelt track sounds amazing - I don't know what Patrick did to it, but there is <strong>stuff I never heard before - geez - clarity, thickness, detail </strong>. It may sound silly, but I am fully in awe of that track. In some ways I am totally speechless about it, or at the least stupefied, left mute, babbling, drooling...</i><span class="bqend">&#8221;</span> <br/> &mdash; Mikel Dimmick, member of <a target="_blank"  href="http://www.klang.org/artists/8-pelt">Pelt</a>, Spiral Joy Band<br/><a id="quotes" href="#allQuotes">View all quotes...</a></p>					
 							</blockquote> -->
@@ -408,8 +416,11 @@
 				</div>
 				<div class="clear"></div>
 				<div class="grid_8 omega" style="top:-420px;">
-					<span id="slidePrevPrep" style="display:none;"><button class="navArrow" style="left:400px;">&lt;</button></span><span id="slideNextPrep" style="display:none;"><button style="left:400px;" class="navArrow">&gt;</button></span>
-					<div id="preparation" class="about" style="display:none;overflow:hidden;min-height:1000px;">
+					<div id="quoteNav"></div>
+					<span id="slidePrevPrep" style="display:none;"><button class="navArrow" style="left:350px;">&lt;</button></span><span id="slideNextPrep" style="display:none;"><button style="left:350px;" class="navArrow">&gt;</button></span>
+					
+					<div id="preparation" class="about" style="display:none;overflow:hidden;min-height:1100px;">
+						
 						<div id="prep1" class="prepOverlay">
 							<h2>Format</h2><p class="masteringText" style="width:450px;">We accept CDs/DVDs and DATs. Analog tapes can be accepted with advance notification.  Mixes should be printed as 24 bit word length, and use whatever sample rate it was originally recorded at (i.e., don't up/downsample it); we can accept sample rates up to 192kHz. Audio CDs or 44.1kHz/16 bit files are fine, they just provide a lower resolution. Data files are preferred to audio CDs, however, do not create a data CD by creating data files from the audio CD ('ripping' the disc). Only send data files that are created by mixing ('bouncing to disk' in Pro Tools). We can accept stereo interleaved or dual mono. Please mix them in a consistent manner, i.e., no varying sample rates, bit length, or file formats (make them all '*.wav' or '*.aiff'). Do not send anything in a lossy format (e.g., mp3s).</p>
 						</div>
@@ -429,6 +440,7 @@
 						</div>
 					</div>
 				</div>
+				
 			</div> <!-- contact -->
 			<div class="clear"></div>
 		</div> <!-- main --> 

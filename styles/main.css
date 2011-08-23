@@ -92,6 +92,11 @@ input.submit:hover {
 /*    background:url('../images/background4-01-01.jpg') no-repeat;*/
     min-height:2000px;
 }
+#masterNav { float:left;background:#80959A;}
+#masterNav li {display:inline; }
+#masterNav a { text-decoration: none; margin: 0 5px; padding: 3px 5px;color:#fff;  }
+#masterNav a.activeSlide { background: #832F03;margin: 0px; padding: 0px 5px; }
+
 #allQuotes div{
 	width:700px;
 }
@@ -102,6 +107,11 @@ input.submit:hover {
 	line-height:22px;
 	color:#000;
 }
+
+#quoteNav { float:left;background:#80959A;}
+#quoteNav li {display:inline; }
+#quoteNav a { text-decoration: none; margin: 0 5px; padding: 3px 5px;color:#fff;  }
+#quoteNav a.activeSlide { background: #832F03;margin: 0px; padding: 0px 5px; }
 
 .bqstart {
      float: left;
@@ -163,12 +173,20 @@ input.submit:hover {
 .nav {
 	position:fixed;
 	top:0px;
-	height:37px;
+	height:50px;
 /*	background:rgba(255, 255, 255, 0.30);*/
 	z-index:900;
 /*	background:#000;*/
 	background-color: #2B2622;
+/*	padding-left:35px;*/
+}
+
+.nav ul{
+	background-color: #2B2622;
 	padding-left:35px;
+	height: 10px;
+	top: 10px;
+	position: relative;
 }
 
 .nav li{
