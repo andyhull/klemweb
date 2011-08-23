@@ -92,13 +92,17 @@ input.submit:hover {
 /*    background:url('../images/background4-01-01.jpg') no-repeat;*/
     min-height:2000px;
 }
-#masterNav { float:left;background:#80959A;}
+#masterNav { float:left;}
 #masterNav li {display:inline; }
 #masterNav a { text-decoration: none; margin: 0 5px; padding: 3px 5px;color:#fff;  }
-#masterNav a.activeSlide { background: #832F03;margin: 0px; padding: 0px 5px; }
+#masterNav a.activeSlide { background: #832F03;margin: 0 5px; padding: 3px 5px; }
 
 #allQuotes div{
 	width:700px;
+}
+
+#allQuotes a{
+	margin:0px;
 }
 
 #allQuotes p{
@@ -108,10 +112,14 @@ input.submit:hover {
 	color:#000;
 }
 
-#quoteNav { float:left;background:#80959A;}
+#page{
+	min-height:7000px;
+}
+
+#quoteNav { float:left;}
 #quoteNav li {display:inline; }
 #quoteNav a { text-decoration: none; margin: 0 5px; padding: 3px 5px;color:#fff;  }
-#quoteNav a.activeSlide { background: #832F03;margin: 0px; padding: 0px 5px; }
+#quoteNav a.activeSlide { background: #832F03;margin: 0 5px; padding: 3px 5px; }
 
 .bqstart {
      float: left;
