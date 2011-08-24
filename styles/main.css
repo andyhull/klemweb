@@ -4,10 +4,14 @@ a{
 	margin:1px;
 }
 
+a img {
+	border:none;
+}
+
 body{
 /*    background:#000 url('../images/klem1black.png') no-repeat 0px 6px;*/
 	background:#2B2622;
-    margin:0px;
+    margin:60px;
 	font-family:Helvetica, sans-serif;
 }
 
@@ -184,30 +188,32 @@ input.submit:hover {
 	height:50px;
 /*	background:rgba(255, 255, 255, 0.30);*/
 	z-index:900;
-/*	background:#000;*/
 	background-color: #2B2622;
 /*	padding-left:35px;*/
 }
 
 .nav ul{
-	background-color: #2B2622;
-	padding-left:35px;
+/*	background-color: #2B2622;*/
+	padding-left:15px;
 	height: 10px;
 	top: 10px;
 	position: relative;
+	
 }
 
 .nav li{
 	display:inline;
-	float:left;
+	float:left;	
 }
 
 .nav li a{
-	display:block;
+/*	display:block;*/
 	font-size:35px;
     line-height:1px;
     color:#ccc;
 	text-transform:uppercase;
+	min-height:40px;
+	position: relative;
 }
 .nav li a:hover{
 
