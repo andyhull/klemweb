@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+	<meta name="description" content="Patrick Klem has worked with Sonic Youth, Mouthus, Six Organs of Admittance, Howlin' Rain, Steve Gunn, & Shipping News. Affordable, professional mastering."/>
+    <link rel="icon" type="image/gif" href="/favicon.gif" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script src="scripts/jquery.cycle.all.js"></script>
+    <script src="scripts/jquery.tools.min.js"></script>
+    <script src="scripts/jquery.simplemodal.1.4.1.min.js"></script>
+    <script src="scripts/jquery.form.js"></script>
+    <script src="scripts/osx.js"></script>
+    
+
+	<link href="styles/960.css" rel="stylesheet" type="text/css" media="all"/> 
+	<link href="styles/main.css" rel="stylesheet" type="text/css" media="all"/> 
+
+	<link href="styles/osx.css" rel="stylesheet" type="text/css" media="all"/>     
+	<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+	<title>That Klemflastic Sound: Rate Calculator</title>
+    <script>
+		$(document).ready(function() {
+			/*$('#rateForm').ajaxForm(function() { 
+                alert("Thank you for your comment!"); 
+            }); */
+			$('.modal').hide();
+			$('#general_trigger').click(function (e) {
+												  
+				$('#general_popup').modal();
+				return false;
+			});
+			$('#vinylhidden').hide();
+			$('#numsongs').keyup(function() {
+				$('#numsongs_total').text('$'+parseInt($('#numsongs').val())*25);
+				TotalForm();
+			});
+			$('#numminutes').keyup(function() {
+				if (!isNaN(parseInt($('#numminutes').val())))
+					$('#numminutes_total').text('$'+parseInt($('#numminutes').val()));
+				else
+					$('#numminutes_total').text('');
+				TotalForm();
+			});
+			$('#vinyl').click(function() {
+				if($('#vinyl').is(':checked')) {
+					$('#vinylhidden').show();
+					if ($('#vinyl_onetrackperside').val() == 'yes') {
+						$('#vinyl_total').text('$5');
+					} else {
+						$('#vinyl_total').text('$25');
+					}
+				} else {
+					$('#vinylhidden').hide();
+					$('#vinyl_total').text('');
+					
+				}
+				TotalForm();
+			});
+			$('#vinyl_onetrackperside').change(function() {
+				if ($('#vinyl_onetrackperside').val() == 'yes') {
+					$('#vinyl_total').text('$5');
+				} else {
+					$('#vinyl_total').text('$25');
+				}
+				TotalForm();
+			});
+			$('#dvd').click(function() {
+				if($('#dvd').is(':checked')) {
+					$('#dvd_total').text('$25');
+				} else {
+					$('#dvd_total').text('');
+				}
+				TotalForm();
+			});
+			$('#cassette').click(function() {
+				if($('#cassette').is(':checked')) {
+					$('#cassette_total').text('$25');
+				} else {
+					$('#cassette_total').text('');
+				}
+				TotalForm();
+			});
+			$('#cd').click(function() {
+				if($('#cd').is(':checked')) {
+					$('#cd_total').text('$25');
+				} else {
+					$('#cd_total').text('');
+				}
+				TotalForm();
+			});
+			$('#digital').click(function() {
+				if($('#digital').is(':checked')) {
+					$('#digital_total').text('$10');
+				} else {
+					$('#digital_total').text('');
+				}
+				TotalForm();
+			});
+			$(":input[@name='shipping']").live('change',function(event) { 
+					//alert('clicked'); 
+					//alert($(this).val());
+				$('#standard_total').text('');
+				$('#alternate_total').text('');
+				$('#electronic_total').text('');
+				if ($('#standard').is(':checked'))
+					$('#standard_total').text('$5');
+				if ($('#alternate').is(':checked'))
+					$('#alternate_total').text('$2+');
+				if ($('#electronic').is(':checked'))
+					$('#electronic_total').text('$0');
+				TotalForm();
+			}); 
+			$('#12inch').click(function() {
+				if($('#12inch').is(':checked')) {
+					$('#12inch_total').text('$30');
+				} else {
+					$('#12inch_total').text('');
+				}
+				TotalForm();
+			});
+			$('#7inch').click(function() {
+				if($('#7inch').is(':checked')) {
+					$('#7inch_total').text('$10');
+				} else {
+					$('#7inch_total').text('');
+				}
+				TotalForm();
+			});
+			
+			$('#metbefore').change(function() {
+				if ($('#metbefore').val() == 'yes') {
+					$('#discount').html('<i>-15%</i>');
+				} else {
+					$('#discount').text('');
+				}
+				TotalForm();
+			});
+			
+			$('#paypal').change(function() {
+				if ($('#paypal').val() == 'yes') {
+					$('#paypalfee').html('<i>+8%</i>');
+				} else {
+					$('#paypalfee').text('');
+				}
+				TotalForm();
+			});
+			TotalForm();
+		});
+		function TotalForm() {
+			var t = 0;
+			$('.total').each(function(index) {
+				if (!isNaN(parseInt(filterNum($(this).text()))))
+					t += parseInt(filterNum($(this).text()));
+			});
+			if ($('#metbefore').val() == 'yes') {
+				t *= .85;
+			}
+			if ($('#paypal').val() == 'yes') {
+				t *= 1.08;
+			}
+			$('#total_total').text('$'+t.toFixed(2));
+			$('#deposit_total').text('$'+(t*.5).toFixed(2));
+			$('#total_price').val('$'+t.toFixed(2));
+		}
+		function filterNum(str) {
+			re = /^\$|,/g;
+			return str.replace(re, "");
+		}
+	</script>
+								   
+</head>
+
+<body>
+<center>
+<form id="rateForm" method="post" action="submit.php">
+<table width="900">
+	<tr><td colspan="3" align="left" class="rate">
+    <h1>Project Cost Estimator:</h1>
+
+	<p>This estimator is for mastering album(s) with digital tracks delivered by you, which is the majority of our work.  <a href=" mailto:klem@klemflastic.com">Contact us</a> for projects that fall outside of this category, such as vinyl / tape transfers and restoration or attending a session.</p>
+    
+    <p>We provide:<br />
+<strong><em>Free revisions</em></strong> - Albeit infrequent, any and all revisions are free; your satisfaction is our goal.<br />
+<strong><em>Fast turn-around time</em></strong> - We work with your schedule. First passes can often be returned within a week.  Priority/'no weekend for us' service is also available at a surcharge.<br />
+<strong><em>Free sample</em></strong> - We are happy to provide a free sample - feel free to send a track to us, and we'll send a watermarked portion of a mastered version back.  Paid work takes precedence to this service, so the time to provide the sample varies with our current workload.</p>
+
+    </td></tr>
+	<tr><td width="500" valign="top">
+    <table width="100%">
+        <tr>
+            <th colspan="3" class='osx' link="general_popup">General Information</th>
+        </tr>
+        <tr>
+            <td align="right"><label for="numsongs">How many songs are there?</label></td>
+            <td><input type="text" name="numsongs" size="3" id="numsongs" /></td>
+            <td align="right"><span id="numsongs_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="numminutes">How many minutes are in the entire album?</label></td>
+            <td><input type="text" name="numminutes" size="3" id="numminutes" /></td>
+            <td align="right"><span id="numminutes_total" class="total"></span></td>
+        <!--Each song is $25 + $1 for each minute of audio
+        [math: add (# of songs * 25) + # of minutes]-->
+        </tr>
+        <tr>
+            <th colspan="3" class='osx' link="setup_popup">Setup &amp; Archive</th>
+        </tr><tr>
+            <td align="right">Standard fee</td>
+            <td></td>
+            <td align="right"><span id="setup_total" class="total">$25</span></td>
+        </tr><tr>
+            <th colspan="3" class='osx' link="masters_popup">Destination &amp; Production Masters</th>
+        </tr><tr>
+            <td align="right"><label for="vinyl">Vinyl</label></td> <!--[math: add 25]-->
+            <td><input type="checkbox" id="vinyl" name="vinyl" /></td>
+            <td align="right"><span id="vinyl_total" class="total"></span></td>
+        </tr><tr id="vinylhidden">
+            <td align="right"><label for="vinyl_onetrackperside">Will each side of the vinyl be only one song?</label></td> <!--[math: reduce to 5]-->
+            <td>
+                <select id="vinyl_onetrackperside" name="vinyl_onetrackperside">
+                <option value="">---</option>
+                <option value="yes">Yes</option>
+                <option value="no" selected>No</option>
+                </select>
+            </td>
+            <td></td>
+        </tr><tr>
+            <td align="right"><label for="dvd">DVD-A</label></td> <!--[math: add 25]-->
+            <td><input type="checkbox" id="dvd" name="dvd" /></td>
+            <td align="right"><span id="dvd_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="cassette">Cassette</label></td> <!--[math: add 25]-->
+            <td><input type="checkbox" id="cassette" name="cassette" /></td>
+            <td align="right"><span id="cassette_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="cd">CD</label></td> <!--[math: add 25]-->
+            <td><input type="checkbox" id="cd" name="cd" /></td>
+            <td align="right"><span id="cd_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="digital">Digital Download<br /><span class="caption">(mp3, FLAC, wav, aiff, etc., includes tagging)</span></label></td> <!--[math: add 10]-->
+            <td><input type="checkbox" id="digital" name="digital" /></td>
+            <td align="right"><span id="digital_total" class="total"></span></td>
+        </tr><tr>
+            <th colspan="3">Shipping</th>
+        </tr><tr>
+            <td align="right"><label for="standard">Standard Shipping<br /><span class="caption">(first class with delivery confirmation to US only)</span></label></td> <!--[math: add 10]-->
+            <td><input type="radio" id="standard" name="shipping" /></td> <!--[math: add 5]-->
+            <td align="right"><span id="standard_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="alternate">Alternate Shipping<br /><span class="caption">(add info to the comment box - we'll ship any other method at actual cost + $2 for packaging)</span></label></td> <!--[math: add 10]-->
+            <td><input type="radio" id="alternate" name="shipping" /></td>
+            <td align="right"><span id="alternate_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="electronic">Digital<br /><span class="caption">(only available for vinyl and digital download tracks, not any PMCD)</span></label></td>
+            <td><input type="radio" id="electronic" name="shipping" /></td> 
+            <td align="right"><span id="electronic_total" class="total"></span></td>
+        </tr><tr>
+            <th colspan="3">Delivery Information</th>
+        </tr><tr>
+            <td align="right"><label for="me">Ship the masters to me</label></td>
+            <td><input type="checkbox" id="me" name="me" /></td> 
+            <td></span></td>
+        </tr><tr>
+            <td align="right"><label for="someone">Ship the masters to someone else</label></td>
+            <td><input type="checkbox" id="someone" name="someone" /></td> 
+            <td></span></td>
+        </tr><tr>
+            <td align="center" colspan="2">
+            <table>
+            <tr>
+                <td align="center">Master Delivery Address &amp; Shipping Comments</td>
+            </tr><tr>
+                <td align="center"><textarea id="address" id="address" rows="7" cols="30"></textarea></td>
+            </tr>
+            </table>
+            </td>
+        </tr><tr>
+            <th colspan="3" class='osx' link="testpress_popup">Test Pressing Evaluation</th>
+        </tr><tr>
+            <td align="right"><label for="12inch">12"</label></td> <!--[math: add 10]-->
+            <td><input type="checkbox" id="12inch" name="12inch" /></td>
+            <td align="right"><span id="12inch_total" class="total"></span></td>
+        </tr><tr>
+            <td align="right"><label for="7inch">7"</label></td> <!--[math: add 10]-->
+            <td><input type="checkbox" id="7inch" name="7inch" /></td>
+            <td align="right"><span id="7inch_total" class="total"></span></td>    
+        </tr><tr>
+            <th colspan="3">Discount!</th>
+        </tr><tr>
+            <td align="right"><label for="metbefore">Have we met before?<br /><span class="caption">(Returning clients get a 15% discount)</span></label></td>
+            <td><select id="metbefore" name="metbefore">
+            	<option value="">---</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                </select></td> <!--[math: sum - (sum*.15)]-->
+            <td align="right"><span id="discount"></td>
+        </tr><tr>
+            <th colspan="3" class='osx' link="paypal_popup">Payment Method</th>
+        </tr><tr>
+            <td align="right"><label for="paypal">Will you be using PayPal?<br /><span class="caption">(PayPal payments carry an additional 4% per transaction)</span></label></td>
+            <td><select id="paypal" name="paypal">
+            	<option value="">---</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                </select></td> <!--[math: sum - (sum*.15)]-->
+            <td align="right"><span id="paypalfee"></td>
+        </tr><tr>
+            <th colspan="3" class='osx' link="total_popup">Total Cost &amp; Deposit</th>
+        </tr><tr>
+            <td colspan="2" align="right">Total required for the good times to start:<br /><span class="caption">(we require 50% of the estimate paid before session begins)</span></td>
+            <td align="right"><span id="deposit_total"></span></td>
+        </tr><tr>
+            <td colspan="2" align="right">Total cost:<br /><span class="caption">(remaining balance before masters are delivered)</span></td> <!-- [math: new sum / 2]-->
+            <td align="right"><span id="total_total"></span></td>
+        </tr>
+        </table>
+    </td><td width="100">&nbsp;
+   	</td><td width="300" valign="top">
+    <table width="100%">
+    	<tr>
+        	<th colspan="2">Who Are You?</th>
+        </tr><tr>
+        	<td align="right"><label for="name">Name</label></td>
+            <td><input type="text" id="name" name="name" /></td>
+        </tr><tr>
+        	<td align="right"><label for="email">Email</label></td>
+            <td><input type="text" id="email" name="email" /></td>
+        </tr><tr>
+        	<td align="right"><label for="phone">Phone<br /><span class="caption">(optional)</span></label></td>
+            <td><input type="text" id="phone" name="phone" /></td>
+        </tr><tr>
+        	<th colspan="2">Project Info</th>
+        </tr><tr>
+        	<td align="right"><label for="artist">Artist</label></td>
+            <td><input type="text" id="artist" name="artist" /></td>
+        </tr><tr>
+        	<td align="right"><label for="title">Title</label></td>
+            <td><input type="text" id="title" name="title" /></td>
+        </tr><tr>
+        	<td align="right"><label for="label">Label</label></td>
+            <td><input type="text" id="label" name="label" /></td>
+        </tr><tr>
+        	<td align="right"><label for="catalog">Catalog #</label></td>
+            <td><input type="text" id="catalog" name="catalog" /></td>
+        </tr><tr>
+        	<th align="center" colspan="2">Song Titles<br /><span class="caption">(and ISRCs if available)</span></th>
+        </tr><tr>
+            <td align="center" colspan="2"><textarea id="songtitles" name="songtitles" rows="15" cols="24"></textarea></td>
+        </tr><tr>
+        	<th colspan="2">Comments / Notes</th>
+        </tr><tr>
+        	<td align="center" colspan="2"><textarea id="comments" name="comments" rows="15" cols="24"></textarea></td>
+        </tr>
+    </table>
+    </td></tr>
+</table>
+<br />
+<input type="hidden" id="total_price" name="total_price" value="" />
+<input id="formsubmit" link="thankyou_popup" type="submit" value="Transmit to Klemflastic HQ" style="width:200px; height:40px;" />
+</form>
+</center>
+
+
+<div id="general_popup" class="modal">
+    <div id="osx-modal-title">Why the weird billing per track?</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+        It's the fairest way for both of us. Each song usually requires a 'start from scratch' method, so 16 songs of 4 minutes each usually requires far more work than the epic 64 minute free jazz improv single track. Given that a large percentage of our work is on records that are composed of a few songs each of long length, this fee schedule parallels our workflow, and makes it far cheaper for the majority of our clients in comparison to places that simply charge a flat fee per minute fee (regardless of the level of work incumbent on the project!)
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+<div id="setup_popup" class="modal">
+	<div id="osx-modal-title">Setup &amp; Archive</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+		This fee covers project any conversions, load-in/session configuration and archiving. Need those original mixes or mastered files five years from now? Not a problem...
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+<div id="masters_popup" class="modal">
+	<div id="osx-modal-title">Further Information</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+        <p>A production master is used by the replication house for the mass production of vinyl records or CDs and is thoroughly tested for errors. It should not be used for casual listening or for making copies; rather, it should remain sealed and opened only by the replication house. Every production master is inspected visually, listened to in its entirety, and verified digitally via Plextools software. It is accompanied by a PQ timecode data sheet as well as the Plextools validation report. Listening copies do not undergo the same level of data verification.  We're happy to encode your ISRCs and/or CD-Text on audio CDs and upload info to Gracenote/CDDB.</p>
+        
+        <p>Note: even if the final delivery format is data files, the production master fee is still charged as any production master still requires assembling the sequence, spacers, accompanying time code sheet, printing the files according to the plant's specifications, and optional FTP'ing the files to the plant. However, we'll waive this charge if the vinyl is a single song for each and every side of the project.</p>
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+<div id="testpress_popup" class="modal">
+	<div id="osx-modal-title">Further Information</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+		We sync the record to the digital master and compare the two throughout the program, paying particular attention to tracing distortion, surface noise, low frequency stereo spread, as well as sibilance and high frequency content.
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+<div id="paypal_popup" class="modal">
+	<div id="osx-modal-title">Explanation of PayPal Fees</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+		<p>Paypal payments incur a 4% surcharge per transaction.  However, if Paypal does not assess a surcharge, we will refund the 4% surcharge.  You can usually avoid a PayPal surcharge by sending payment as a 'personal' payment, with funds linked to your bank account.  Our PayPal address is klem@klemflastic.com.</p>
+
+<p>Payment can also be made via well-concealed cash (at sender's risk), or via personal check (however, we wait for the check to clear before releasing the final masters).  If you are not paying via PayPal, we'll send you our postal address.</p>
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+<div id="total_popup" class="modal">
+	<div id="osx-modal-title">The Fine Print</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+        <p>While this is technically an estimate, it is rare for the fee to change. Here are some examples of things that will require the estimate to change:<br />
+        <ul class="inner">
+        <li>Supplying new mixes after a first pass has been sent to you (we'll do free revisions on the mixes originally supplied)</li>
+        <li>Wanting different sonic treatment for different formats, e.g., wanting a LOUD CD and also a master for vinyl - the vinyl will sound like crap if you subject it to the in-your-face loudness often heard in modern pop music, so it needs to mastered differently.  If reasonable levels (e.g., -12dBFS RMS) are adhered to, it's fine to use the same master for both analog and digital production.  More information on the differences between vinyl and digital is available <a target="_blank" href="/considerations.pdf">here</a>.  After you read this, we'll happily discuss how it relates to your project.</li>
+        <li>Significant editing above and beyond a reasonable standard</li>
+        </ul>
+        </p>
+        
+        <p>Analog tapes will be returned with final masters.  We don't keep or return CDs or DVDs.</p>
+        
+        <p>First passes will have 'watermarks' on them (low beeps/noise occurring every 30 seconds or so) and are removed upon remittance of the balance.</p>
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+<div id="thankyou_popup" class="modal">
+	<div id="osx-modal-title">Thank You!</div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+        <p>Thanks for contacting Klemflastic Sound.  We'll write/call soon.  In the meantime, please review the information below.  If you're ready to proceed, please visit the 'Preparation' section at <a href="http://www.klemflastic.com">www.klemflastic.com</a> for information on how to deliver project materials to us.  You can also pay the deposit via PayPal to klem@klemflastic.com or contact us (same address) for our postal address.</p>
+        <p><button class="simplemodal-close">Close</button> <span>(or press ESC or click the overlay)</span></p>
+	</div>
+</div>
+
+<div id="holder_popup" class="modal">
+</div>
+</body>
+</html>
