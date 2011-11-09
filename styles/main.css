@@ -135,7 +135,6 @@ input.submit:hover {
  .bqend {
      float: right;
      font-size: 500%;
-     color: #FF0000;
 	 height: 25px;
 	 margin-top: 0px;
      padding-top: 45px;
@@ -198,6 +197,7 @@ input.submit:hover {
 	height: 10px;
 	top: 10px;
 	position: relative;
+	width:940px;
 	
 }
 
@@ -264,3 +264,39 @@ input.submit:hover {
 	text-shadow: none;
 }
 
+th {
+	background-color:#832F03;
+	color:#FFF;
+}
+td {
+	color:#AAA;
+}
+.caption {
+	font-size:10px;
+}
+
+td p {
+	font-size:14px;
+	line-height:normal;
+}
+
+div p {
+	color:#FFF;
+}
+
+ol.inner, ul.inner{
+	list-style-type:disc;
+	padding:10px;
+	margin-left:15px;
+}
+
+.osx {
+	background-image: url(/images/question.png);
+	background-repeat:no-repeat;
+	background-position:right;
+	cursor:help;
+}
+
+.simplemodal-close {
+	padding:0px;
+}
