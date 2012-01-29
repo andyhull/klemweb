@@ -125,6 +125,13 @@ input.submit:hover {
 #quoteNav a { text-decoration: none; margin: 0 5px; padding: 3px 5px;color:#fff;  }
 #quoteNav a.activeSlide { background: #832F03;margin: 0 5px; padding: 3px 5px; }
 
+
+#restorationNav { float:left;}
+#restorationNav li {display:inline; }
+#restorationNav a { text-decoration: none; margin: 0 5px; padding: 3px 5px;color:#fff;  }
+#restorationNav a.activeSlide { background: #832F03;margin: 0 5px; padding: 3px 5px; }
+
+
 .bqstart {
      float: left;
      font-size: 500%;
